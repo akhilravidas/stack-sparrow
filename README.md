@@ -9,8 +9,14 @@ A Code LLM - based on GPT-4-Turbo and Assistant API
 pip install -U stack-sparrow
 ```
 
+# Examples
+
+[Review #1](https://mod0.ai/stack-sparrow/review-semantics): Flag semantics issue
+[Review #2](https://mod0.ai/stack-sparrow/review-basic-issues): Flag broken code
+[Review #3](https://mod0.ai/stack-sparrow/review-basic-issues): Successful Review
+
 # Demo
-TODO
+
 
 ## Usage
 

@@ -1,5 +1,5 @@
 # stack-sparrow
-A Code LLM - based on GPT-4-Turbo and Assistant API
+A Code GPT - based on GPT-4-Turbo and Assistant API
 
 [![PyPI - Version](https://img.shields.io/pypi/v/stack-sparrow)](https://pypi.org/project/stack-sparrow/)
 [![Discord](https://img.shields.io/badge/Discord-%235865F2.svg?style=flat&logo=discord&logoColor=white)](https://discord.gg/ZNvjdwrg)

@@ -18,6 +18,12 @@ pip install -U stack-sparrow
 # Demo
 
 
+
+https://github.com/akhilravidas/stack-sparrow/assets/104069/1259364c-9d04-497b-a81b-c78decb711cf
+
+
+
+
 ## Usage
 
 `sparrow` will create an OpenAI assistant on your account on the first run. You can view this assistant and tweak its base instructions at: https://platform.openai.com/assistants

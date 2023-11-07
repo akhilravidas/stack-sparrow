@@ -8,12 +8,108 @@ from dataclasses import dataclass
 from typing import List, Literal, Optional
 from urllib.parse import quote as urlquote
 
-from jinja2 import Environment, FileSystemLoader
+from jinja2 import Template
 
 from sparrow.assistant import actions
 from sparrow.assistant.review import BaseReview, ReviewPlan
 
 COLUMN_WIDTH = 80
+
+HTML_TEMPLATE = """
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Code Review Results</title>
+    <style type="text/css">
+        table.diff {
+            width: 100%;
+            font-family: Courier;
+            border: medium;
+        }
+
+        td[id^="from"]+td,
+        td[id^="to"]+td {
+            width: 50%;
+            white-space: nowrap;
+        }
+
+        .diff_header {
+            background-color: #e0e0e0
+        }
+
+        td.diff_header {
+            text-align: right
+        }
+
+        .diff_next {
+            background-color: #c0c0c0
+        }
+
+        .diff_add {
+            background-color: #aaffaa
+        }
+
+        .diff_chg {
+            background-color: #ffff77
+        }
+
+        .diff_sub {
+            background-color: #ffaaaa
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>Code Review Results</h1>
+
+    {% for fragment in fragments %}
+    <div class="review-section">
+        <h2>
+            {{ fragment.file_path }}
+            [
+            {% if fragment.status == "accepted" %}
+            ✅️ lgtm
+            {% elif fragment.status == "rejected" %}
+            🤔 Review Suggestions
+            {% else %}
+            ⏩ Skipped
+            {% endif %}
+            ]
+        </h2>
+        <div class="diff-content">
+            {{ fragment.diff_html | safe }}
+        </div>
+        {% if fragment.comments %}
+        <h3>Review Comments:</h3>
+        <ul class="suggestions-list">
+            {% for comment in fragment.comments %}
+            <li>
+                <strong>Status:</strong> {{ comment.accepted and "Accepted" or "Rejected" }}<br>
+                {% for review_comment in comment.review_comments %}
+                <strong>Explanation:</strong> {{ review_comment.explanation }} <br>
+                <strong>Start Line:</strong> {{ review_comment.start_line }} <br>
+                {% if review_comment.old_code_block or review_comment.new_code_block %}
+                <pre><code>Old Code Block: {{ review_comment.old_code_block }}</code></pre>
+                <pre><code>New Code Block: {{ review_comment.new_code_block }}</code></pre>
+                {% endif %}
+                {% endfor %}
+            </li>
+            {% endfor %}
+        </ul>
+        {% elif fragment.status == "skipped" %}
+        <p>No review comments because this file was skipped.</p>
+        {% endif %}
+    </div>
+    {% endfor %}
+
+</body>
+
+</html>
+"""
 
 
 def diff_table(
@@ -40,9 +136,8 @@ class _ReviewFragment:
 
 
 def _render_review_page(fragments: List[_ReviewFragment]) -> str:
-    # Load templates from the templates directory
-    env = Environment(loader=FileSystemLoader("sparrow/templates"))
-    template = env.get_template("code-review.html")
+    # TODO: Fix issue with load templates from the templates directory
+    template = Template(HTML_TEMPLATE)
     return template.render(fragments=fragments)
 
 

@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "stack-sparrow"
-version = "0.1.0"
+version = "0.0.7"
 description = ""
 authors = ["Akhil Ravidas <ar@mod0.ai>"]
 readme = "README.md"

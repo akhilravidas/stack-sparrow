@@ -4,7 +4,7 @@ A Code GPT - based on GPT-4-Turbo and Assistant API
 [![PyPI - Version](https://img.shields.io/pypi/v/stack-sparrow)](https://pypi.org/project/stack-sparrow/)
 [![Discord](https://img.shields.io/badge/Discord-%235865F2.svg?style=flat&logo=discord&logoColor=white)](https://discord.gg/ZNvjdwrg)
 
-NOTE: This was a quick project to test out the OpenAI Assistant API. A MUCH BETTER version of these capabilities were announced a day later by Github at [GitHub Universe 2023](https://githubuniverse.com/).
+NOTE: This was a quick project I build the same day of OpenAI Assistant API release. If you are a copilot user, A MUCH BETTER version of these capabilities were announced a day later by Github at [GitHub Universe 2023](https://githubuniverse.com/), coming end of this month.
 
 ## Installation
 ```bash
